@@ -27,7 +27,7 @@ def tollDiff():
        plaza_name = x[3]
        ded_price = x[4].replace(',', '')
        deduct_price = float(ded_price)
-       query = 'SELECT toll_name, four_to_six_price FROM toll_prices WHERE toll_name="{}";'.format(plaza_name)
+       query = 'SELECT toll_name, toll_price FROM toll_prices WHERE toll_name="{}";'.format(plaza_name)
        cursor.execute(query)
        result2 = cursor.fetchall()
        if(cursor.rowcount>0):

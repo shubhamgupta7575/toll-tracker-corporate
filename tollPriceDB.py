@@ -15,11 +15,11 @@ def tollPriceDB():
     process_count = 0
     inserted_count = 0
     cursor = db.cursor()
-    csv_data = csv.reader(open('dataset1.csv', newline=''))
+    csv_data = csv.reader(open('toll-rate-chetakmotors.csv', newline=''))
 
     for row in csv_data:
         process_count += 1
-        sql = "INSERT INTO toll_prices (toll_name, car_jeep_van_price, lcv_price, bus_truck_price, upto_three_axe_price, four_to_six_price, seven_price, fee_effective_date, hcm, revision_date) VALUES ('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s' );" % (row[0].strip(), row[2].split(';')[0], row[3].split(';')[0], row[4].split(';')[0], row[5].split(';')[0], row[6].split(';')[0], row[8].split(';')[0], row[1], row[7].split(';')[0], row[9])
+        sql = "INSERT INTO toll_prices (toll_name, toll_price, created_at) VALUES ('%s','%s','%s' );" % (row[0], row[1], dt_string)
         try:
            # Execute the SQL command
            cursor.execute(sql)

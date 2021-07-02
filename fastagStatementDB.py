@@ -20,7 +20,9 @@ def fastagStatementDB():
     print("Processing... Please wait")
     for row in csv_data:
         plazacode = row[6].lstrip('ÿ')
-        if(row[5]!="ADJUSTMENT" and row[0]!=''):
+        s = row[10].replace(',', '')
+        price = float(s)
+        if(row[5]!="ADJUSTMENT" and row[0]!='' and price!=0.0):
             plazaname = row[7].split("Plaza Name:")[1].split()[0].strip('-')
             unique_id1 = row[8].lstrip('ÿ')
             unique_id2 = unique_id1.split("/")

@@ -27,7 +27,7 @@ def dispute_transaction():
     csvwriter.writerow(fields)
 
     # data rows of csv file
-    qry = "SELECT trip_no, deduct_price  from toll_diff WHERE status='Y'"
+    qry = "SELECT trip_no, deduct_price from toll_diff WHERE status='Y'"
     cursor.execute(qry)
     result = cursor.fetchall()
 
