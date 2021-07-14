@@ -2,6 +2,8 @@ import mysql.connector
 import csv
 from datetime import datetime
 import dbInfo
+import pandas as pd
+from pathlib import Path
 
 def fastagStatementDB():
     db = mysql.connector.connect(
@@ -15,6 +17,12 @@ def fastagStatementDB():
     now = datetime.now()
     dt_string = now.strftime("%Y-%m-%d %H:%M:%S")
     cursor = db.cursor()
+    my_file = Path("OnlineStatement.csv")
+    if not(my_file.is_file()):
+        # file exists
+        data = pd.read_html('../../Downloads/OnlineStatement.xls')
+        df  = pd.DataFrame(data=data[0])
+        df.to_csv("OnlineStatement.csv",index=False, header=None)
     csv_data = csv.reader(open('OnlineStatement.csv', newline=''))
     next(csv_data)
     print("Processing... Please wait")
