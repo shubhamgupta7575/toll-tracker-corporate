@@ -31,7 +31,7 @@ def fastagStatementDB():
         s = row[10].replace(',', '')
         price = float(s)
         if(row[5]!="ADJUSTMENT" and row[0]!='' and price!=0.0):
-            plazaname = row[7].split("Plaza Name:")[1].split()[0].strip('-')
+            plazaname = row[7].split("Plaza Name:")[1].split('-Lane')[0]
             unique_id1 = row[8].lstrip('ÿ')
             unique_id2 = unique_id1.split("/")
             unique_id = unique_id1.split("/")[0].strip()

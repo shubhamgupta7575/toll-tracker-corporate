@@ -37,7 +37,7 @@ def tollDiff():
                actual_price = float(lst[0][1])
                # print("Act Price- ", lst[0][1])
                toll_name = lst[0][0]
-               difference = abs(actual_price-deduct_price)
+               difference = deduct_price-actual_price
                cursor1 = db.cursor(buffered=True)
                if(difference>0.0):
                    print("Difference Found- ", actual_price, deduct_price, difference, toll_name)

@@ -25,7 +25,7 @@ def dispute_transaction():
 
         # writing the fields
         csvwriter.writerow(fields)
-
+        rec_count = 0 ;
         # data rows of csv file
         qry = "SELECT trip_no, deduct_price from toll_diff WHERE status='Y'"
         cursor.execute(qry)
@@ -34,8 +34,14 @@ def dispute_transaction():
         if(cursor.rowcount>0):
             for final_res in result:
                rows = []
+               ded_price = final_res[1]
+               act_price = final_res[2]
+               if (float(ded_price)/float(act_price)==2.0):
+                    sub_type = "DOUBLE DEBIT"
+               else:
+                    sub_type = dbInfo.subtype
                rows.append(dbInfo.type)
-               rows.append(dbInfo.subtype)
+               rows.append(sub_type)
                rows.append(dbInfo.priority)
                rows.append(dbInfo.severity)
                rows.append(final_res[0])
@@ -47,6 +53,11 @@ def dispute_transaction():
                update_qry = "UPDATE `toll_diff` SET `status` = 'L' WHERE trip_no='{}';".format(final_res[0])
                cursor.execute(update_qry)
                db.commit()
+               f.flush()
+               rec_count+=1
+        f.close()
+        print("No of Disputeed Transaction CSV Logged:.", rec_count)
+        print("Program completed.")
         print("Dispute Transaction CSV File is Ready.")
 if __name__  ==  "__main__":
     dispute_transaction()
