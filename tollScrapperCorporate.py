@@ -101,7 +101,7 @@ def tollScrapperCorporate():
     #     # download_link.click()
     # except TimeoutException:
     #     print("Loading take too much time on Download Online Statement")
-    time.sleep(5)
+    time.sleep(20)
 
     # try:
     #     table1 = driver.find_element_by_xpath('//*[@id="Menu_lnkbtnOnline"]')

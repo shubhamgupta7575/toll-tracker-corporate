@@ -4,6 +4,7 @@ from tollPriceDB import tollPriceDB
 from tollScrapperCorporate import tollScrapperCorporate
 from tollDiff import tollDiff
 from dispute_transaction import dispute_transaction
+from dispute_transaction_upload import dispute_transaction_upload
 
 root = tk.Tk()
 frame = tk.Frame(root)
@@ -34,6 +35,10 @@ tollDiff_Button.place(x=250,y=50)
 dispute_transaction_button = tk.Button(text='Create CSV of Dispute Transactions')
 dispute_transaction_button["command"] = dispute_transaction
 dispute_transaction_button.place(x=10, y=90)
+
+xls_button = tk.Button(text='Upload XLS File')
+xls_button["command"] = dispute_transaction_upload
+xls_button.place(x=250, y=90)
 
 quit = tk.Button(text="QUIT", fg="red",command=root.destroy)
 quit.place(x=200, y=150)

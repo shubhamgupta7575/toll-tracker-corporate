@@ -19,7 +19,7 @@ def fastagStatementDB():
     cursor = db.cursor()
     my_file = Path("OnlineStatement.csv")
     if not(my_file.is_file()):
-        # file exists
+        # file not exists
         data = pd.read_html('../../Downloads/OnlineStatement.xls')
         df  = pd.DataFrame(data=data[0])
         df.to_csv("OnlineStatement.csv",index=False, header=None)
