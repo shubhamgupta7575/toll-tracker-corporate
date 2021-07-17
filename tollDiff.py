@@ -24,25 +24,28 @@ def tollDiff():
        txn_dtm = x[0]
        rrn = x[1]
        trip_no = x[2]
-       plaza_name = x[3]
+       plaza_name = x[3].split('- Lane')[0]
+       # print("Fastag Plaza- ",plaza_name)
        ded_price = x[4].replace(',', '')
        deduct_price = float(ded_price)
        query = 'SELECT toll_name, toll_price FROM toll_prices WHERE toll_name="{}";'.format(plaza_name)
+       # print(query)
        cursor.execute(query)
        result2 = cursor.fetchall()
        if(cursor.rowcount>0):
            for final_res in result2:
                lst = []
                lst.append(final_res)
-               actual_price = float(lst[0][1])
-               # print("Act Price- ", lst[0][1])
+               actual_price = float(lst[0][1].replace(",", ""))
+               # print("Act Price- ", actual_price)
                toll_name = lst[0][0]
+               # print("Toll Price- ", toll_name)
                difference = deduct_price-actual_price
                cursor1 = db.cursor(buffered=True)
                if(difference>0.0):
                    print("Difference Found- ", actual_price, deduct_price, difference, toll_name)
                    total_diff +=1
-                   insert_qry = "INSERT INTO toll_diff (txn_dtm, plaza_name, rrn, trip_no, actual_price, deduct_price, difference, status, created_at) VALUES ('%s','%s','%s','%s','%s','%s','%s','%s','%s');" % (txn_dtm, plaza_name, rrn, trip_no, actual_price, deduct_price, difference, status, dt_string)
+                   insert_qry = "INSERT INTO toll_diff (txn_dtm, plaza_name, rrn, trip_no, actual_price, deduct_price, difference, status, created_at) VALUES ('%s','%s','%s','%s','%s','%s','%s','%s','%s');" % (txn_dtm, x[3], rrn, trip_no, actual_price, deduct_price, difference, status, dt_string)
                    try:
                        cursor1.execute(insert_qry)
                        db.commit()
