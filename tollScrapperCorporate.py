@@ -39,8 +39,12 @@ def tollScrapperCorporate():
     driver.get('https://fastaglogin.icicibank.com/CUSTLOGIN/Pages/Documents/AdHocStatements.aspx')
 
     try:
-        link2 = WebDriverWait(driver, 5).until(
+        link2 = WebDriverWait(driver, 3).until(
             lambda x: x.find_element_by_xpath('//*[@id="Body_Calendar_txtStartDates"]').click())
+        link2.click()
+        # time.sleep(1)
+        # select_date = driver.find_element_by_xpath('//*[@id="Body_Calendar_lblMonthly"]')
+        # select_date.click()
     except TimeoutException:
         print("Loading take too much time on Select Date")
 
@@ -51,7 +55,7 @@ def tollScrapperCorporate():
         time.sleep(2)
         download_link = driver.find_element_by_link_text('Export Transaction Summary to Excel')
         download_link.click()
-        time.sleep(10)
+        # time.sleep(10)
     except TimeoutException:
         print("Loading take too much time on Export Transaction Summary to Excel")
 
